@@ -2,10 +2,10 @@
 echo "DATE ||| $(date)"
 
 # Variables
-RSTUDIOVERSION='rstudio-server-0.99.739-amd64.deb'
+RSTUDIOVERSION='rstudio-server-0.99.792-amd64.deb'
 
 # Add CRAN mirror to apt-get sources
-add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu trusty/"
+add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu wily/"
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
 # install LaTeX, nodejs, R, and base Haskell
@@ -20,6 +20,9 @@ apt-get update && apt-get install --assume-yes --no-install-recommends \
     libghc-pandoc-citeproc-dev \
     libghc-pandoc-citeproc-doc \
     libghc-pandoc-dev \
+    libmysqlclient-dev \
+    libpq-dev \
+    libpq5 \
     libxml2-dev \
     lmodern \
     nodejs \
@@ -126,12 +129,12 @@ ln -s /root/.cabal/bin/pandoc /usr/local/bin/pandoc
 ln -s /root/.cabal/bin/pandoc-citeproc /usr/local/bin/pandoc-citeproc
 
 # Get RStudio Server
-# if [ ! -e /usr/sbin/rstudio-server ]
-#     then
-#         echo "Installing RStudio Server"
-#         wget https://s3.amazonaws.com/rstudio-dailybuilds/$RSTUDIOVERSION
-#         gdebi --non-interactive $RSTUDIOVERSION
-# fi
+if [ ! -e /usr/sbin/rstudio-server ]
+    then
+        echo "Installing RStudio Server"
+        wget https://s3.amazonaws.com/rstudio-dailybuilds/$RSTUDIOVERSION
+        gdebi --non-interactive $RSTUDIOVERSION
+fi
 
 R --vanilla -f /vagrant/r-dependencies.R
 
