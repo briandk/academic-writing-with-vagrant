@@ -2,7 +2,7 @@
 echo "DATE ||| $(date)"
 
 # Variables
-RSTUDIOVERSION='rstudio-server-0.99.792-amd64.deb'
+RSTUDIOVERSION='rstudio-server-0.99.824-amd64.deb'
 
 # Add CRAN mirror to apt-get sources
 add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu wily/"
@@ -40,14 +40,13 @@ ln -s /root/.cabal/bin/pandoc-citeproc /usr/local/bin/pandoc-citeproc
 if [ ! -e /usr/sbin/rstudio-server ]
     then
         echo "Installing RStudio Server"
-        wget https://s3.amazonaws.com/rstudio-dailybuilds/$RSTUDIOVERSION
-        gdebi --non-interactive $RSTUDIOVERSION
+          && wget https://s3.amazonaws.com/rstudio-dailybuilds/$RSTUDIOVERSION
+          && gdebi --non-interactive $RSTUDIOVERSION
+          && echo "RStudio server is running at http://localhost:4567"
 fi
 
-# R --vanilla -f /vagrant/r-dependencies.R
-
-# Inform the user what's up
-echo "RStudio server is running at http://localhost:4567"
+# Install R Dependencies
+R --vanilla -f /vagrant/r-dependencies.R
 
 # print end time
 echo "DATE ||| $(date)"
