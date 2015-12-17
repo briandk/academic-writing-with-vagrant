@@ -3,6 +3,7 @@ echo "DATE ||| $(date)"
 
 # Variables
 RSTUDIOVERSION='rstudio-server-0.99.824-amd64.deb'
+RVERSION='R-latest.tar.gz'
 
 # Try replacing the standard ubuntu archive with a faster mirror
 sed -i.bak 's/archive.ubuntu.com/mirrors.rit.edu/' /etc/apt/sources.list
@@ -109,7 +110,20 @@ cabal update && cabal install pandoc pandoc-citeproc
 ln -s /root/.cabal/bin/pandoc /usr/local/bin/pandoc
 ln -s /root/.cabal/bin/pandoc-citeproc /usr/local/bin/pandoc-citeproc
 
-# Get RStudio Server
+# Install R from Source
+apt-get update && apt-get build-dep --assume-yes \
+    r-base \
+    r-cran-rgl
+
+wget "https://cran.rstudio.com/src/base/$RVERSION" && \
+    mkdir /$RVERSION && \
+    tar --strip-components 1 -zxvf $RVERSION.tar.gz  -C /$RVERSION && \
+    cd /$RVERSION && \
+    ./configure --enable-R-shlib && \
+    make && \
+    make install
+
+# Install RStudio Server
 if [ ! -e /usr/sbin/rstudio-server ]
     then
         echo "Installing RStudio Server"
