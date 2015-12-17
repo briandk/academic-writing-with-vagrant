@@ -5,7 +5,7 @@ echo "DATE ||| $(date)"
 RSTUDIOVERSION='rstudio-server-0.99.824-amd64.deb'
 
 # Add CRAN mirror to apt-get sources
-add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu wily/"
+add-apt-repository "deb https://cran.rstudio.com/bin/linux/ubuntu trusty/"
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
 # install LaTeX, nodejs, R, and base Haskell
