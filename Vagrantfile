@@ -12,7 +12,8 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/wily64"
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.box_version = "20151119"
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
     v.cpus = 2
