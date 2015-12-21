@@ -1,5 +1,4 @@
 packages_to_install <- c(
-  "checkpoint",
   "devtools",
   "dplyr",
   "ggplot2",
